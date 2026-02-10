@@ -52,7 +52,7 @@ router.get("/sync/:tableId", async (req, res) => {
 /* ================= UPDATE ORDER (WORKS FOR BOTH ADMIN & CUSTOMER) ================= */
 router.post("/:tableId", async (req, res) => {
   try {
-    const { items, paymentMethod, status } = req.body;
+    const { items, paymentMethod, status, customerName, customerMobile } = req.body;
 
     let order = await Order.findOne({
       tableId: req.params.tableId,
@@ -65,6 +65,8 @@ router.post("/:tableId", async (req, res) => {
         tableId: req.params.tableId,
         items: items || [],
         paymentMethod: paymentMethod || null,
+        customerName: customerName || "",
+        customerMobile: customerMobile || "",
         status: status || "active",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -76,6 +78,12 @@ router.post("/:tableId", async (req, res) => {
       }
       if (paymentMethod !== undefined) {
         order.paymentMethod = paymentMethod;
+      }
+      if (customerName !== undefined) {
+        order.customerName = customerName;
+      }
+      if (customerMobile !== undefined) {
+        order.customerMobile = customerMobile;
       }
       if (status !== undefined) {
         order.status = status;
@@ -93,7 +101,7 @@ router.post("/:tableId", async (req, res) => {
 /* ================= CONFIRM ORDER WITH PAYMENT METHOD ================= */
 router.put("/confirm/:tableId", async (req, res) => {
   try {
-    const { paymentMethod } = req.body;
+    const { paymentMethod, customerName, customerMobile } = req.body;
 
     // Find or create order for this table
     let order = await Order.findOne({
@@ -107,6 +115,8 @@ router.put("/confirm/:tableId", async (req, res) => {
         tableId: req.params.tableId,
         items: [],
         paymentMethod: paymentMethod,
+        customerName: customerName || "",
+        customerMobile: customerMobile || "",
         status: "confirmed",
         confirmedAt: new Date(),
         createdAt: new Date(),
@@ -116,6 +126,12 @@ router.put("/confirm/:tableId", async (req, res) => {
       // Update existing order
       order.paymentMethod = paymentMethod;
       order.status = "confirmed";
+      if (customerName !== undefined) {
+        order.customerName = customerName;
+      }
+      if (customerMobile !== undefined) {
+        order.customerMobile = customerMobile;
+      }
       order.confirmedAt = new Date();
       order.updatedAt = new Date();
       await order.save();
@@ -153,6 +169,8 @@ router.put("/pay/:tableId", async (req, res) => {
       method: method || order.paymentMethod || "Cash",
       paymentMethod: order.paymentMethod || "Cash",
       orderId: order._id,
+      customerName: order.customerName || "",
+      customerMobile: order.customerMobile || "",
       createdAt: new Date()
     });
 

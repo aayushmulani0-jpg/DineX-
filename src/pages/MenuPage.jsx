@@ -1,6 +1,6 @@
 ﻿import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { Row, Col, Typography, Tag, message, Modal } from "antd";
+import { Row, Col, Typography, Tag, message, Modal, Input } from "antd";
 import {
   ShoppingCartOutlined,
   CloseOutlined,
@@ -17,7 +17,6 @@ const { Title, Text } = Typography;
 
 export default function MenuPage({
   menuItems = [],
-  addOrderFromQR,
   billingConfig,
   loading = false,
 }) {
@@ -32,6 +31,11 @@ export default function MenuPage({
   const [customerOrderId, setCustomerOrderId] = useState(null);
   const [showAddMoreSection, setShowAddMoreSection] = useState(false);
   const [additionalItems, setAdditionalItems] = useState([]);
+  const [customerName, setCustomerName] = useState("");
+  const [customerMobile, setCustomerMobile] = useState("");
+  const [customerInfoOpen, setCustomerInfoOpen] = useState(false);
+  const [savingCustomerInfo, setSavingCustomerInfo] = useState(false);
+  const [isTableActive, setIsTableActive] = useState(null);
   const [messageApi, contextHolder] = message.useMessage();
 
   const paymentOptions = ["Cash", "UPI", "Card"];
@@ -66,6 +70,25 @@ export default function MenuPage({
       setOrderItems(orderData.items || []);
       setOrderStatus(orderData.status || "draft");
 
+      if (orderData.customerName && !customerName) {
+        setCustomerName(orderData.customerName);
+      }
+      if (orderData.customerMobile && !customerMobile) {
+        setCustomerMobile(orderData.customerMobile);
+      }
+
+      const nextTableActive = orderData.status !== "draft";
+      if (isTableActive === null || nextTableActive !== isTableActive) {
+        setIsTableActive(nextTableActive);
+        if (nextTableActive) {
+          setCustomerInfoOpen(false);
+        } else {
+          setCustomerName("");
+          setCustomerMobile("");
+          setCustomerInfoOpen(true);
+        }
+      }
+
       // Set payment method if exists
       if (orderData.paymentMethod) {
         setPaymentMethod(orderData.paymentMethod);
@@ -85,7 +108,13 @@ export default function MenuPage({
     } catch (error) {
       console.error("Failed to fetch order:", error);
     }
-  }, [normalizedTableId, customerOrderId]);
+  }, [
+    normalizedTableId,
+    customerOrderId,
+    customerName,
+    customerMobile,
+    isTableActive,
+  ]);
 
   useEffect(() => {
     if (!normalizedTableId) return;
@@ -95,6 +124,43 @@ export default function MenuPage({
 
     return () => clearInterval(syncInterval);
   }, [normalizedTableId, fetchOrder]);
+
+  const isCustomerInfoValid =
+    customerName.trim().length > 0 && /^\d{10}$/.test(customerMobile.trim());
+
+  const customerPayload =
+    customerName.trim() || customerMobile.trim()
+      ? {
+          customerName: customerName.trim(),
+          customerMobile: customerMobile.trim(),
+        }
+      : {};
+
+  const handleSaveCustomerInfo = async () => {
+    if (!normalizedTableId) return;
+    if (!isCustomerInfoValid) {
+      messageApi.warning("Enter a valid name and mobile number");
+      return;
+    }
+
+    try {
+      setSavingCustomerInfo(true);
+      await axios.post(
+        `http://localhost:5000/api/orders/${normalizedTableId}`,
+        {
+          status: "active",
+          ...customerPayload,
+        },
+      );
+
+      setCustomerInfoOpen(false);
+      messageApi.success("Thanks! You can browse the menu now.");
+    } catch (error) {
+      messageApi.error("Failed to save customer info");
+    } finally {
+      setSavingCustomerInfo(false);
+    }
+  };
 
   /* ================= CATEGORY FILTER ================= */
   const categories = useMemo(() => {
@@ -201,6 +267,7 @@ export default function MenuPage({
           {
             items: updatedItems,
             status: "active",
+            ...customerPayload,
           },
         );
         messageApi.success(`${item.name} added to order`);
@@ -229,6 +296,7 @@ export default function MenuPage({
           {
             items: updated,
             status: updated.length > 0 ? "active" : "draft",
+            ...customerPayload,
           },
         );
 
@@ -253,6 +321,7 @@ export default function MenuPage({
           {
             items: updated,
             status: updated.length > 0 ? "active" : "draft",
+            ...customerPayload,
           },
         );
 
@@ -273,7 +342,7 @@ export default function MenuPage({
     try {
       const res = await axios.put(
         `http://localhost:5000/api/orders/confirm/${normalizedTableId}`,
-        { paymentMethod },
+        { paymentMethod, ...customerPayload },
       );
 
       if (res.data && res.data._id) {
@@ -322,6 +391,7 @@ export default function MenuPage({
           items: combinedItems,
           status: "confirmed",
           paymentMethod: paymentMethod,
+          ...customerPayload,
         },
       );
 
@@ -349,6 +419,7 @@ export default function MenuPage({
           {
             items: [],
             status: "draft",
+            ...customerPayload,
           },
         );
 
@@ -377,6 +448,40 @@ export default function MenuPage({
   return (
     <>
       {contextHolder}
+
+      <Modal
+        open={customerInfoOpen}
+        title="Welcome"
+        closable={false}
+        maskClosable={false}
+        keyboard={false}
+        onOk={handleSaveCustomerInfo}
+        okText="Continue"
+        okButtonProps={{
+          disabled: !isCustomerInfoValid,
+          loading: savingCustomerInfo,
+        }}
+        cancelButtonProps={{ style: { display: "none" } }}
+      >
+        <p>Enter your name and mobile number to view the menu.</p>
+        <div style={{ display: "grid", gap: "12px" }}>
+          <Input
+            placeholder="Your name"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            autoFocus
+          />
+          <Input
+            placeholder="Mobile number"
+            value={customerMobile}
+            onChange={(e) =>
+              setCustomerMobile(e.target.value.replace(/\D/g, "").slice(0, 10))
+            }
+            inputMode="numeric"
+            maxLength={10}
+          />
+        </div>
+      </Modal>
 
       <div className="menu-layout">
         {/* LEFT SIDE - MENU */}

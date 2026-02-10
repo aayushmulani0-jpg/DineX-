@@ -41,28 +41,18 @@ const Billing = ({ bills = [] }) => {
     );
   });
 
-  // Step 2: Group bills by table (one entry per table)
-  const groupedBills = Object.values(
-    filteredBills.reduce((acc, bill) => {
-      if (!acc[bill.table]) {
-        acc[bill.table] = { ...bill };
-      } else {
-        // Sum amounts
-        acc[bill.table].amount += bill.amount;
-
-        // Keep latest bill date
-        if (dayjs(bill.createdAt || bill.date).isAfter(acc[bill.table].date)) {
-          acc[bill.table].date = bill.createdAt || bill.date;
-          acc[bill.table].method = bill.method;
-        }
-      }
-      return acc;
-    }, {}),
-  );
-
-  const totalFilteredRevenue = groupedBills.reduce(
+  const totalFilteredRevenue = filteredBills.reduce(
     (sum, bill) => sum + bill.amount,
     0,
+  );
+  const billsByDate = filteredBills.reduce((acc, bill) => {
+    const billDay = dayjs(bill.createdAt || bill.date).format("YYYY-MM-DD");
+    if (!acc[billDay]) acc[billDay] = [];
+    acc[billDay].push(bill);
+    return acc;
+  }, {});
+  const sortedDates = Object.keys(billsByDate).sort(
+    (a, b) => dayjs(b).valueOf() - dayjs(a).valueOf(),
   );
   const rangeLabel = dateRange
     ? `${dateRange[0]?.format("MMM D")} – ${dateRange[1]?.format("MMM D")}`
@@ -73,9 +63,9 @@ const Billing = ({ bills = [] }) => {
     setMetaDescription(
       `Review ₹${totalFilteredRevenue.toFixed(
         2,
-      )} collected from ${groupedBills.length} tables for ${rangeLabel}.`,
+      )} collected from ${filteredBills.length} bills for ${rangeLabel}.`,
     );
-  }, [totalFilteredRevenue, groupedBills.length, rangeLabel]);
+  }, [totalFilteredRevenue, filteredBills.length, rangeLabel]);
 
   return (
     <div className="main">
@@ -108,30 +98,47 @@ const Billing = ({ bills = [] }) => {
 
       {/* Bills Table */}
       <div className="table-card" style={{ marginTop: "20px" }}>
-        {groupedBills.length === 0 ? (
+        {filteredBills.length === 0 ? (
           <Empty description="No bills found for selected range" />
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Table</th>
-                <th>Amount</th>
-                <th>Payment</th>
-                <th>Date</th>
-              </tr>
-            </thead>
+          sortedDates.map((dateKey) => (
+            <div key={dateKey} style={{ marginBottom: "16px" }}>
+              <h3 style={{ marginBottom: "10px" }}>
+                {dayjs(dateKey).format("MMM D, YYYY")}
+              </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Table</th>
+                    <th>Customer</th>
+                    <th>Mobile</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
 
-            <tbody>
-              {groupedBills.map((bill) => (
-                <tr key={bill.table}>
-                  <td>Table {bill.table}</td>
-                  <td>₹{bill.amount.toFixed(2)}</td>
-                  <td>{bill.method}</td>
-                  <td>{formatDateTime(bill.createdAt || bill.date)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                <tbody>
+                  {billsByDate[dateKey].map((bill) => (
+                    <tr
+                      key={
+                        bill.id ||
+                        bill._id ||
+                        `${bill.table}-${bill.createdAt || bill.date}`
+                      }
+                    >
+                      <td>Table {bill.table}</td>
+                      <td>{bill.customerName || "-"}</td>
+                      <td>{bill.customerMobile || "-"}</td>
+                      <td>₹{bill.amount.toFixed(2)}</td>
+                      <td>{bill.method}</td>
+                      <td>{formatDateTime(bill.createdAt || bill.date)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))
         )}
       </div>
     </div>

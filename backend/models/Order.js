@@ -20,6 +20,14 @@ const orderSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    customerName: {
+      type: String,
+      default: "",
+    },
+    customerMobile: {
+      type: String,
+      default: "",
+    },
     status: {
       type: String,
       default: "active", // active | paid

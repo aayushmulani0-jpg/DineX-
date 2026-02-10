@@ -17,6 +17,14 @@ const billSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  customerName: {
+    type: String,
+    default: "",
+  },
+  customerMobile: {
+    type: String,
+    default: "",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
