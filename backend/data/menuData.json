@@ -1,0 +1,546 @@
+[
+  {
+    "id": "margherita-pizza",
+    "img": "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca",
+    "name": "Classic Margherita",
+    "dsc": "Fresh mozzarella, basil & tomato sauce",
+    "price": 299,
+    "rate": 4.5,
+    "category": "Pizza"
+  },
+  {
+    "id": "pepperoni-pizza",
+    "img": "https://images.unsplash.com/photo-1628840042765-356cda07504e",
+    "name": "Pepperoni Feast",
+    "dsc": "Loaded with premium pepperoni",
+    "price": 349,
+    "rate": 4.8,
+    "category": "Pizza"
+  },
+  {
+    "id": "farmhouse-pizza",
+    "img": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e",
+    "name": "Farmhouse",
+    "dsc": "Onions, capsicum, mushrooms & olives",
+    "price": 329,
+    "rate": 4.6,
+    "category": "Pizza"
+  },
+  {
+    "id": "bbq-chicken-pizza",
+    "img": "https://images.unsplash.com/photo-1548365328-9f547fb0953b",
+    "name": "BBQ Chicken",
+    "dsc": "Smoky BBQ sauce & grilled chicken",
+    "price": 399,
+    "rate": 4.7,
+    "category": "Pizza"
+  },
+  {
+    "id": "paneer-tikka-pizza",
+    "img": "https://images.unsplash.com/photo-1601924582975-7aa4c52f1f1f",
+    "name": "Paneer Tikka",
+    "dsc": "Indian spiced paneer & onions",
+    "price": 339,
+    "rate": 4.5,
+    "category": "Pizza"
+  },
+  {
+    "id": "mexican-pizza",
+    "img": "https://images.unsplash.com/photo-1573821663912-569905455b1c",
+    "name": "Mexican Fiesta",
+    "dsc": "Jalapeños, corn & spicy sauce",
+    "price": 329,
+    "rate": 4.4,
+    "category": "Pizza"
+  },
+  {
+    "id": "cheese-burst-pizza",
+    "img": "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94",
+    "name": "Cheese Burst",
+    "dsc": "Extra cheese loaded crust",
+    "price": 499,
+    "rate": 4.9,
+    "category": "Pizza"
+  },
+  {
+    "id": "veg-supreme-pizza",
+    "img": "https://images.unsplash.com/photo-1594007654729-407eedc4be65",
+    "name": "Veg Supreme",
+    "dsc": "Loaded with fresh vegetables",
+    "price": 379,
+    "rate": 4.6,
+    "category": "Pizza"
+  },
+  {
+    "id": "four-cheese-pizza",
+    "img": "https://images.unsplash.com/photo-1585238342024-78d387f4a707",
+    "name": "Four Cheese",
+    "dsc": "Mozzarella, cheddar, parmesan & feta",
+    "price": 459,
+    "rate": 4.8,
+    "category": "Pizza"
+  },
+  {
+    "id": "spicy-sausage-pizza",
+    "img": "https://images.unsplash.com/photo-1542281286-9e0a16bb7366",
+    "name": "Spicy Sausage",
+    "dsc": "Italian sausage & chili flakes",
+    "price": 429,
+    "rate": 4.7,
+    "category": "Pizza"
+  },
+
+  {
+    "id": "classic-beef-burger",
+    "img": "https://images.unsplash.com/photo-1550547660-d9450f859349",
+    "name": "Classic Beef Burger",
+    "dsc": "Juicy grilled beef patty",
+    "price": 249,
+    "rate": 4.6,
+    "category": "Burger"
+  },
+  {
+    "id": "double-cheese-burger",
+    "img": "https://images.unsplash.com/photo-1606755962773-d324e0a13086",
+    "name": "Double Cheese",
+    "dsc": "Double patty, double cheese",
+    "price": 299,
+    "rate": 4.8,
+    "category": "Burger"
+  },
+  {
+    "id": "crispy-chicken-burger",
+    "img": "https://images.unsplash.com/photo-1600891964092-4316c288032e",
+    "name": "Crispy Chicken",
+    "dsc": "Golden fried chicken patty",
+    "price": 229,
+    "rate": 4.5,
+    "category": "Burger"
+  },
+  {
+    "id": "veggie-burger",
+    "img": "https://images.unsplash.com/photo-1571091718767-18b5b1457add",
+    "name": "Veggie Delight",
+    "dsc": "Loaded veggie patty",
+    "price": 199,
+    "rate": 4.3,
+    "category": "Burger"
+  },
+  {
+    "id": "bbq-bacon-burger",
+    "img": "https://images.unsplash.com/photo-1553979459-d2229ba7433b",
+    "name": "BBQ Bacon Burger",
+    "dsc": "Beef patty with crispy bacon & BBQ sauce",
+    "price": 349,
+    "rate": 4.8,
+    "category": "Burger"
+  },
+  {
+    "id": "mushroom-swiss-burger",
+    "img": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd",
+    "name": "Mushroom Swiss",
+    "dsc": "Sauteed mushrooms & swiss cheese",
+    "price": 299,
+    "rate": 4.6,
+    "category": "Burger"
+  },
+  {
+    "id": "spicy-jalapeno-burger",
+    "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90",
+    "name": "Spicy Jalapeño",
+    "dsc": "Loaded with jalapeños & spicy sauce",
+    "price": 289,
+    "rate": 4.7,
+    "category": "Burger"
+  },
+  {
+    "id": "peri-peri-chicken-burger",
+    "img": "https://images.unsplash.com/photo-1606756790138-261d2b21cd13",
+    "name": "Peri Peri Chicken",
+    "dsc": "Grilled peri peri chicken patty",
+    "price": 279,
+    "rate": 4.6,
+    "category": "Burger"
+  },
+  {
+    "id": "paneer-burger",
+    "img": "https://images.unsplash.com/photo-1619881590738-a111d176d02b",
+    "name": "Paneer Burger",
+    "dsc": "Grilled paneer patty with mint mayo",
+    "price": 229,
+    "rate": 4.5,
+    "category": "Burger"
+  },
+  {
+    "id": "fish-fillet-burger",
+    "img": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+    "name": "Fish Fillet Burger",
+    "dsc": "Crispy fish fillet with tartar sauce",
+    "price": 299,
+    "rate": 4.6,
+    "category": "Burger"
+  },
+  {
+    "id": "loaded-cheese-burger",
+    "img": "https://images.unsplash.com/photo-1603064752734-4c48eff53d05",
+    "name": "Loaded Cheese Burger",
+    "dsc": "Triple cheese overloaded burger",
+    "price": 369,
+    "rate": 4.9,
+    "category": "Burger"
+  },
+  {
+    "id": "mexican-burger",
+    "img": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5",
+    "name": "Mexican Burger",
+    "dsc": "Corn salsa & chipotle sauce",
+    "price": 279,
+    "rate": 4.5,
+    "category": "Burger"
+  },
+  {
+    "id": "classic-lamb-burger",
+    "img": "https://images.unsplash.com/photo-1550317138-10000687a72b",
+    "name": "Classic Lamb Burger",
+    "dsc": "Juicy grilled lamb patty",
+    "price": 359,
+    "rate": 4.7,
+    "category": "Burger"
+  },
+  {
+    "id": "ultimate-monster-burger",
+    "img": "https://images.unsplash.com/photo-1600891964092-4316c288032e",
+    "name": "Ultimate Monster",
+    "dsc": "Double patty, bacon, cheese & fried egg",
+    "price": 399,
+    "rate": 5,
+    "category": "Burger"
+  },
+
+  {
+    "id": "club-sandwich",
+    "img": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af",
+    "name": "Club Sandwich",
+    "dsc": "Triple layer chicken sandwich",
+    "price": 349,
+    "rate": 4.5,
+    "category": "Sandwich"
+  },
+  {
+    "id": "grilled-cheese",
+    "img": "https://images.unsplash.com/photo-1617196034183-421b4917c92d",
+    "name": "Grilled Cheese",
+    "dsc": "Classic melted cheese sandwich",
+    "price": 249,
+    "rate": 4.4,
+    "category": "Sandwich"
+  },
+  {
+    "id": "chicken-tikka-sandwich",
+    "img": "https://images.unsplash.com/photo-1553909489-cd47e0ef937f",
+    "name": "Chicken Tikka Sandwich",
+    "dsc": "Spiced chicken tikka filling",
+    "price": 399,
+    "rate": 4.6,
+    "category": "Sandwich"
+  },
+  {
+    "id": "veggie-grill-sandwich",
+    "img": "https://images.unsplash.com/photo-1567234669003-dce7a7a88821",
+    "name": "Veggie Grill",
+    "dsc": "Grilled veggies & cheese",
+    "price": 299,
+    "rate": 4.4,
+    "category": "Sandwich"
+  },
+  {
+    "id": "egg-mayo-sandwich",
+    "img": "https://images.unsplash.com/photo-1604908177225-dc27e60f63f3",
+    "name": "Egg Mayo Sandwich",
+    "dsc": "Creamy egg mayo filling",
+    "price": 269,
+    "rate": 4.3,
+    "category": "Sandwich"
+  },
+  {
+    "id": "turkey-club-sandwich",
+    "img": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af",
+    "name": "Turkey Club",
+    "dsc": "Turkey, lettuce & tomato layers",
+    "price": 449,
+    "rate": 4.7,
+    "category": "Sandwich"
+  },
+  {
+    "id": "ham-cheese-sandwich",
+    "img": "https://images.unsplash.com/photo-1619535860434-4d3e8c69db17",
+    "name": "Ham & Cheese",
+    "dsc": "Classic ham & melted cheese",
+    "price": 329,
+    "rate": 4.5,
+    "category": "Sandwich"
+  },
+  {
+    "id": "paneer-mayo-sandwich",
+    "img": "https://images.unsplash.com/photo-1606756790138-261d2b21cd13",
+    "name": "Paneer Mayo",
+    "dsc": "Soft paneer with creamy mayo",
+    "price": 299,
+    "rate": 4.4,
+    "category": "Sandwich"
+  },
+  {
+    "id": "spicy-chicken-sandwich",
+    "img": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b",
+    "name": "Spicy Chicken Sandwich",
+    "dsc": "Hot & crispy chicken fillet",
+    "price": 399,
+    "rate": 4.6,
+    "category": "Sandwich"
+  },
+  {
+    "id": "corn-cheese-sandwich",
+    "img": "https://images.unsplash.com/photo-1613478223719-2ab802602423",
+    "name": "Corn Cheese Sandwich",
+    "dsc": "Sweet corn & cheese filling",
+    "price": 269,
+    "rate": 4.3,
+    "category": "Sandwich"
+  },
+  {
+    "id": "avocado-sandwich",
+    "img": "https://images.unsplash.com/photo-1604908177238-23a13a14f7a2",
+    "name": "Avocado Delight",
+    "dsc": "Fresh avocado & herbs",
+    "price": 379,
+    "rate": 4.5,
+    "category": "Sandwich"
+  },
+  {
+    "id": "italian-sub-sandwich",
+    "img": "https://images.unsplash.com/photo-1550547660-d9450f859349",
+    "name": "Italian Sub",
+    "dsc": "Salami, cheese & Italian dressing",
+    "price": 449,
+    "rate": 4.7,
+    "category": "Sandwich"
+  },
+
+  {
+    "id": "coca-cola",
+    "img": "https://images.unsplash.com/photo-1629203851122-3726ecdf080e",
+    "name": "Coca Cola",
+    "dsc": "Chilled fizzy drink",
+    "price": 99,
+    "rate": 4.5,
+    "category": "Drinks"
+  },
+  {
+    "id": "cold-coffee",
+    "img": "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
+    "name": "Cold Coffee",
+    "dsc": "Creamy iced coffee",
+    "price": 179,
+    "rate": 4.7,
+    "category": "Drinks"
+  },
+  {
+    "id": "fresh-lime-soda",
+    "img": "https://images.unsplash.com/photo-1582450871972-ab5ca641643d",
+    "name": "Fresh Lime Soda",
+    "dsc": "Refreshing lime soda with mint",
+    "price": 129,
+    "rate": 4.6,
+    "category": "Drinks"
+  },
+  {
+    "id": "strawberry-milkshake",
+    "img": "https://images.unsplash.com/photo-1572490122747-3968b75cc699",
+    "name": "Strawberry Milkshake",
+    "dsc": "Thick strawberry shake",
+    "price": 199,
+    "rate": 4.7,
+    "category": "Drinks"
+  },
+  {
+    "id": "oreo-milkshake",
+    "img": "https://images.unsplash.com/photo-1590080877777-4d5b1e06d2a1",
+    "name": "Oreo Milkshake",
+    "dsc": "Creamy shake with crushed Oreos",
+    "price": 219,
+    "rate": 4.8,
+    "category": "Drinks"
+  },
+  {
+    "id": "mango-smoothie",
+    "img": "https://images.unsplash.com/photo-1603569283847-aa295f0d016a",
+    "name": "Mango Smoothie",
+    "dsc": "Fresh blended mango delight",
+    "price": 179,
+    "rate": 4.6,
+    "category": "Drinks"
+  },
+  {
+    "id": "watermelon-juice",
+    "img": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5",
+    "name": "Watermelon Juice",
+    "dsc": "Chilled fresh watermelon juice",
+    "price": 169,
+    "rate": 4.5,
+    "category": "Drinks"
+  },
+  {
+    "id": "lemon-iced-tea",
+    "img": "https://images.unsplash.com/photo-1497534446932-c925b458314e",
+    "name": "Lemon Iced Tea",
+    "dsc": "Cool refreshing iced tea",
+    "price": 119,
+    "rate": 4.4,
+    "category": "Drinks"
+  },
+  {
+    "id": "blueberry-soda",
+    "img": "https://images.unsplash.com/photo-1613478223719-2ab802602423",
+    "name": "Blueberry Soda",
+    "dsc": "Sparkling blueberry cooler",
+    "price": 149,
+    "rate": 4.6,
+    "category": "Drinks"
+  },
+  {
+    "id": "hazelnut-cold-coffee",
+    "img": "https://images.unsplash.com/photo-1517701604599-bb29b565090c",
+    "name": "Hazelnut Cold Coffee",
+    "dsc": "Cold coffee with hazelnut flavor",
+    "price": 229,
+    "rate": 4.8,
+    "category": "Drinks"
+  },
+  {
+    "id": "banana-shake",
+    "img": "https://images.unsplash.com/photo-1589308078059-be1415eab4c3",
+    "name": "Banana Shake",
+    "dsc": "Classic banana milkshake",
+    "price": 159,
+    "rate": 4.5,
+    "category": "Drinks"
+  },
+  {
+    "id": "energy-drink",
+    "img": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "name": "Energy Boost",
+    "dsc": "High caffeine energy drink",
+    "price": 139,
+    "rate": 4.3,
+    "category": "Drinks"
+  },
+
+  {
+    "id": "chocolate-icecream",
+    "img": "https://images.unsplash.com/photo-1563805042-7684c019e1cb",
+    "name": "Chocolate Ice Cream",
+    "dsc": "Rich chocolate scoop",
+    "price": 199,
+    "rate": 4.8,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "vanilla-icecream",
+    "img": "https://images.unsplash.com/photo-1579954115545-a95591f28bfc",
+    "name": "Vanilla Ice Cream",
+    "dsc": "Classic creamy vanilla",
+    "price": 199,
+    "rate": 4.6,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "butterscotch-icecream",
+    "img": "https://images.unsplash.com/photo-1589712235279-7f1b2d5b6a56",
+    "name": "Butterscotch Ice Cream",
+    "dsc": "Crunchy butterscotch delight",
+    "price": 219,
+    "rate": 4.7,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "strawberry-icecream",
+    "img": "https://images.unsplash.com/photo-1599785209707-28c3e5f1a66e",
+    "name": "Strawberry Ice Cream",
+    "dsc": "Fresh strawberry scoop",
+    "price": 209,
+    "rate": 4.6,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "cookies-cream",
+    "img": "https://images.unsplash.com/photo-1615485737457-5a2d8e6e7f16",
+    "name": "Cookies & Cream",
+    "dsc": "Vanilla ice cream with cookie chunks",
+    "price": 249,
+    "rate": 4.9,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "mango-icecream",
+    "img": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c",
+    "name": "Mango Ice Cream",
+    "dsc": "Seasonal mango flavor",
+    "price": 209,
+    "rate": 4.6,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "black-currant",
+    "img": "https://images.unsplash.com/photo-1551024601-bec78aea704b",
+    "name": "Black Currant",
+    "dsc": "Tangy berry flavored scoop",
+    "price": 219,
+    "rate": 4.5,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "choco-chip",
+    "img": "https://images.unsplash.com/photo-1629385701021-fcd568c3f6b2",
+    "name": "Choco Chip",
+    "dsc": "Vanilla with chocolate chips",
+    "price": 249,
+    "rate": 4.7,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "caramel-swirl",
+    "img": "https://images.unsplash.com/photo-1602296758373-5d7e63f0f9b4",
+    "name": "Caramel Swirl",
+    "dsc": "Rich caramel ribbon mix",
+    "price": 259,
+    "rate": 4.8,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "pistachio-icecream",
+    "img": "https://images.unsplash.com/photo-1560807707-8cc77767d783",
+    "name": "Pistachio Ice Cream",
+    "dsc": "Premium pista flavor",
+    "price": 299,
+    "rate": 4.6,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "chocolate-fudge",
+    "img": "https://images.unsplash.com/photo-1563805042-7684c019e1cb",
+    "name": "Chocolate Fudge",
+    "dsc": "Dark chocolate fudge swirl",
+    "price": 279,
+    "rate": 4.9,
+    "category": "Ice Cream"
+  },
+  {
+    "id": "rainbow-sorbet",
+    "img": "https://images.unsplash.com/photo-1617191518404-02c13f1c61a2",
+    "name": "Rainbow Sorbet",
+    "dsc": "Colorful fruity sorbet scoops",
+    "price": 239,
+    "rate": 4.5,
+    "category": "Ice Cream"
+  }
+]
