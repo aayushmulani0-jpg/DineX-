@@ -384,14 +384,14 @@ export default function MenuPage({
           <div className="menu-header">
             <div>
               <div className="logo">NeuroDineX</div>
-              <div className="table-badge">
+              <center className="table-badge">
                 Table: {tableId}
                 {orderStatus === "confirmed" && (
                   <span className="confirmed-badge">
                     <CheckCircleOutlined /> Confirmed
                   </span>
                 )}
-              </div>
+              </center>
             </div>
 
             {(orderItems.length > 0 || orderStatus === "confirmed") && (
@@ -465,88 +465,87 @@ export default function MenuPage({
         {/* RIGHT SIDE - ORDER SUMMARY */}
         <div className={`menu-right ${showMobileSummary ? "show-mobile" : ""}`}>
           <div className="order-panel">
-            <div className="order-panel-header">
-              <Title level={4}>
-                Your Order {orderStatus === "confirmed" && "✓"}
-              </Title>
-              <button
-                className="mobile-close-btn"
-                onClick={() => setShowMobileSummary(false)}
-              >
-                <CloseOutlined />
-              </button>
-            </div>
-
-            {orderItems.length === 0 && additionalItems.length === 0 ? (
-              <div className="empty-cart">
-                <Text type="secondary">No items added yet.</Text>
-                <br />
-                <Text type="secondary">Browse menu and add items!</Text>
+            {/* Mobile close button */}
+            {showMobileSummary && (
+              <div className="order-panel-header">
+                <div className="section-title">Order Summary</div>
+                <button
+                  className="mobile-close-btn"
+                  onClick={() => setShowMobileSummary(false)}
+                >
+                  <CloseOutlined />
+                </button>
               </div>
-            ) : (
-              <>
-                {/* MAIN ORDER ITEMS */}
-                <div className="order-section">
-                  <div className="section-title">
-                    {orderStatus === "confirmed"
-                      ? "Current Order"
-                      : "Your Order"}
-                  </div>
-                  <div className="order-items-list">
-                    {orderItems.map((item) => (
-                      <div key={item.id} className="order-item-row">
-                        <div>
-                          <div className="order-item-name">{item.name}</div>
+            )}
 
-                          <div className="order-controls">
-                            <button
-                              className="stepper-btn"
-                              onClick={() => decreaseItem(item, false)}
-                            >
-                              <MinusOutlined />
-                            </button>
+            <div className="order-panel-body">
+              {orderItems.length === 0 && additionalItems.length === 0 ? (
+                <div className="empty-cart">
+                  <Text type="secondary">No items added yet.</Text>
+                  <br />
+                  <Text type="secondary">Browse menu and add items!</Text>
+                </div>
+              ) : (
+                <>
+                  {/* MAIN ORDER ITEMS */}
+                  <div className="order-section">
+                    <div className="section-title">
+                      {orderStatus === "confirmed"
+                        ? "Current Order"
+                        : "Your Order"}
+                    </div>
 
-                            <span className="stepper-qty">{item.qty}</span>
+                    <div className="order-items-list">
+                      {orderItems.map((item) => (
+                        <div key={item.id} className="order-item-row">
+                          <div className="order-item-info">
+                            <div className="order-item-name">{item.name}</div>
+                            <div className="order-controls">
+                              <button
+                                className="stepper-btn"
+                                onClick={() => decreaseItem(item, false)}
+                              >
+                                <MinusOutlined />
+                              </button>
+                              <span className="stepper-qty">{item.qty}</span>
+                              <button
+                                className="stepper-btn"
+                                onClick={() => handleAdd(item)}
+                              >
+                                <PlusOutlined />
+                              </button>
+                              <DeleteOutlined
+                                className="delete-icon"
+                                onClick={() => removeItem(item, false)}
+                              />
+                            </div>
+                          </div>
 
-                            <button
-                              className="stepper-btn"
-                              onClick={() => handleAdd(item)}
-                            >
-                              <PlusOutlined />
-                            </button>
-
-                            <DeleteOutlined
-                              className="delete-icon"
-                              onClick={() => removeItem(item, false)}
-                            />
+                          <div className="order-item-price">
+                            ₹{(item.price * item.qty).toFixed(2)}
                           </div>
                         </div>
-
-                        <div className="order-item-price">
-                          ₹{(item.price * item.qty).toFixed(2)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* ADDITIONAL ITEMS SECTION */}
-                {showAddMoreSection && (
-                  <div className="order-section additional-section">
-                    <div className="section-title">
-                      <PlusOutlined /> Add More Items
-                      <span className="section-subtitle">
-                        (Will be served separately)
-                      </span>
+                      ))}
                     </div>
-                    {additionalItems.length > 0 ? (
+                  </div>
+
+                  {/* ADDITIONAL ITEMS SECTION */}
+                  {showAddMoreSection && (
+                    <div className="order-section additional-section">
+                      <div className="section-title">
+                        <PlusOutlined /> Add More Items
+                        <span className="section-subtitle">
+                          (Will be served separately)
+                        </span>
+                      </div>
+
                       <div className="additional-items-list">
                         {additionalItems.map((item) => (
                           <div
                             key={`additional-${item.id}`}
                             className="order-item-row"
                           >
-                            <div>
+                            <div className="order-item-info">
                               <div className="order-item-name">{item.name}</div>
                               <div className="order-controls">
                                 <button
@@ -568,115 +567,119 @@ export default function MenuPage({
                                 />
                               </div>
                             </div>
+
                             <div className="order-item-price">
                               ₹{(item.price * item.qty).toFixed(2)}
                             </div>
                           </div>
                         ))}
                       </div>
-                    ) : (
-                      <div className="empty-additional">
-                        <Text type="secondary">
-                          Add items from menu to include later
-                        </Text>
-                      </div>
-                    )}
-
-                    {additionalItems.length > 0 && (
-                      <button
-                        className="confirm-additional-btn"
-                        onClick={handleConfirmAdditionalItems}
-                      >
-                        <ArrowRightOutlined /> Confirm Additional Items
-                      </button>
-                    )}
-                  </div>
-                )}
-
-                {/* BILL DETAILS */}
-                <div className="swiggy-bill-wrapper">
-                  <div
-                    className="swiggy-bill-header"
-                    onClick={() => setShowBillDetails(!showBillDetails)}
-                  >
-                    <div>
-                      <div className="to-pay-label">
-                        To Pay ₹{total.toFixed(2)}
-                      </div>
-                      <div className="tax-note">Incl. all taxes & charges</div>
-                    </div>
-                    <div className={`arrow ${showBillDetails ? "rotate" : ""}`}>
-                      ▼
-                    </div>
-                  </div>
-
-                  {showBillDetails && (
-                    <div className="swiggy-bill-body">
-                      <div className="bill-row">
-                        <span>Item Total</span>
-                        <span>₹{subtotal.toFixed(2)}</span>
-                      </div>
-                      <div className="bill-row">
-                        <span>Discount</span>
-                        <span>-₹{discountedAmount.toFixed(2)}</span>
-                      </div>
-                      <div className="bill-row">
-                        <span>Service Charge</span>
-                        <span>₹{serviceCharge.toFixed(2)}</span>
-                      </div>
-                      <div className="bill-row">
-                        <span>
-                          Tax ({(billingConfig?.taxRate || 0.18) * 100}%)
-                        </span>
-                        <span>₹{tax.toFixed(2)}</span>
-                      </div>
                     </div>
                   )}
-                </div>
 
-                {/* PAYMENT METHOD */}
-                {orderStatus !== "confirmed" && (
-                  <div className="payment-segmented">
-                    {paymentOptions.map((option) => (
-                      <button
-                        key={option}
-                        className={`payment-segment ${paymentMethod === option ? "active" : ""}`}
-                        onClick={() => setPaymentMethod(option)}
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                  {/* PAYMENT METHOD SELECTION */}
+                  {orderStatus !== "confirmed" && (
+                    <div className="payment-segmented">
+                      {paymentOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          className={`payment-segment ${paymentMethod === option ? "active" : ""}`}
+                          onClick={() => setPaymentMethod(option)}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
-                <div className="order-actions">
-                  <button
-                    className="clear-order-btn"
-                    onClick={handleClearOrder}
-                  >
-                    {orderStatus === "confirmed"
-                      ? "Clear Additional Items"
-                      : "Clear All Items"}
-                  </button>
-
-                  {orderStatus !== "confirmed" ? (
-                    <button
-                      className="checkout-btn"
-                      disabled={!paymentMethod || orderItems.length === 0}
-                      onClick={handleSetPaymentMethod}
-                    >
-                      Confirm Order ({paymentMethod || "Select Payment"})
-                    </button>
-                  ) : (
+                  {/* CONFIRMED ORDER NOTE */}
+                  {orderStatus === "confirmed" && customerOrderId && (
                     <div className="order-confirmed-note">
                       <CheckCircleOutlined />
-                      <span>Order confirmed with {paymentMethod} payment</span>
-                      <small>You can add more items above</small>
+                      <span>Order #{customerOrderId} Confirmed!</span>
+                      <small>Your food is being prepared</small>
                     </div>
                   )}
-                </div>
-              </>
-            )}
+
+                  {/* ORDER ACTIONS */}
+                  <div className="order-actions">
+                    {orderStatus === "confirmed" &&
+                      additionalItems.length > 0 && (
+                        <button
+                          className="confirm-additional-btn"
+                          onClick={handleConfirmAdditionalItems}
+                        >
+                          <ArrowRightOutlined /> Confirm Additional Items
+                        </button>
+                      )}
+                    <button
+                      className="clear-order-btn"
+                      onClick={handleClearOrder}
+                    >
+                      {orderStatus === "confirmed"
+                        ? "Clear Additional Items"
+                        : "Clear All Items"}
+                    </button>
+
+                    {orderStatus !== "confirmed" && (
+                      <button
+                        className="checkout-btn"
+                        onClick={handleSetPaymentMethod}
+                        disabled={!paymentMethod || orderItems.length === 0}
+                      >
+                        <ArrowRightOutlined /> Confirm Order & Pay
+                      </button>
+                    )}
+                  </div>
+
+                  {/* BILL SECTION */}
+                  <div className="swiggy-bill-wrapper">
+                    <div
+                      className="swiggy-bill-header"
+                      onClick={() => setShowBillDetails(!showBillDetails)}
+                    >
+                      <div>
+                        <div className="to-pay-label">
+                          To Pay ₹{total.toFixed(2)}
+                        </div>
+                        <div className="tax-note">
+                          Incl. all taxes & charges
+                        </div>
+                      </div>
+                      <div
+                        className={`arrow ${showBillDetails ? "rotate" : ""}`}
+                      >
+                        ▼
+                      </div>
+                    </div>
+
+                    {showBillDetails && (
+                      <div className="swiggy-bill-body">
+                        <div className="bill-row">
+                          <span>Item Total</span>
+                          <span>₹{subtotal.toFixed(2)}</span>
+                        </div>
+                        <div className="bill-row">
+                          <span>Discount</span>
+                          <span>-₹{discountedAmount.toFixed(2)}</span>
+                        </div>
+                        <div className="bill-row">
+                          <span>Service Charge</span>
+                          <span>₹{serviceCharge.toFixed(2)}</span>
+                        </div>
+                        <div className="bill-row">
+                          <span>
+                            Tax ({(billingConfig?.taxRate || 0.18) * 100}%)
+                          </span>
+                          <span>₹{tax.toFixed(2)}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

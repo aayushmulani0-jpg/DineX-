@@ -30,6 +30,14 @@
   margin-bottom: 25px;
   flex-shrink: 0;
 }
+.menu-header-controls .ant-input,
+.menu-header-controls .ant-input-affix-wrapper {
+  height: 40px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  display: flex;
+  align-items: center;
+}
 
 .menu-header h2 {
   margin: 0;
@@ -894,6 +902,7 @@
 
 .menu-search {
   width: 200px;
+  height: 36px;
 }
 
 .payment-label {

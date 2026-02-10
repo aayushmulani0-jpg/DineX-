@@ -310,6 +310,7 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
+  align-items: center;
 }
 
 .order-panel {
@@ -319,8 +320,10 @@
   display: flex;
   flex-direction: column;
   min-height: 500px;
-  max-height: calc(100vh - 80px);
+  max-height: 90vh;
   overflow: hidden;
+  width: 100%;
+  max-width: 460px;
 }
 
 @media (min-width: 1024px) {
@@ -338,6 +341,14 @@
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
+}
+
+.order-panel-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ================= ORDER SECTIONS ================= */
@@ -410,6 +421,7 @@
   align-items: center;
   gap: 12px;
   margin-top: 6px;
+  flex-wrap: wrap;
 }
 
 .stepper-btn {
@@ -464,16 +476,36 @@
 /* ================= ORDER ITEMS ================= */
 
 .order-items-list {
-  max-height: 200px;
-  overflow-y: auto;
+  max-height: none;
+  overflow: visible;
   padding-right: 5px;
 }
 
 .additional-items-list {
-  max-height: 150px;
-  overflow-y: auto;
+  max-height: none;
+  overflow: visible;
   margin-bottom: 15px;
   padding-right: 5px;
+}
+
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #f5f5f5;
+  min-height: 60px;
+  width: 100%;
+}
+
+.order-item-row:last-child {
+  border-bottom: none;
+}
+
+.order-item-info {
+  flex: 1;
+  min-width: 0;
+  padding-right: 12px;
 }
 
 .order-items-list::-webkit-scrollbar,
@@ -498,14 +530,9 @@
   background: #a1a1a1;
 }
 
-/* Increase max-height for better scrolling */
 @media (min-width: 1024px) {
-  .order-items-list {
-    max-height: 250px;
-  }
-  
-  .additional-items-list {
-    max-height: 200px;
+  .order-panel {
+    max-height: 90vh;
   }
 }
 
@@ -716,6 +743,7 @@
     width: 100%;
     transition: 0.25s ease;
     z-index: 1000;
+    align-items: stretch;
   }
 
   .menu-right.show-mobile {
@@ -728,12 +756,13 @@
     display: flex;
     flex-direction: column;
     max-height: 100vh;
+    max-width: none;
   }
 
   .order-items-list,
   .additional-items-list {
-    flex: 1;
-    overflow-y: auto;
+    flex: 0 0 auto;
+    overflow: visible;
     -webkit-overflow-scrolling: touch;
     max-height: none;
   }
@@ -782,119 +811,6 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-/* ================= ORDER ITEMS LIST FIX ================= */
-
-.order-item-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f5f5f5;
-  min-height: 60px;
-}
-
-.order-item-row:last-child {
-  border-bottom: none;
-}
-
-.order-item-name {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.2;
-  color: #333;
-  margin-bottom: 4px;
-}
-
-/* ================= ORDER SECTION FIX ================= */
-
-.order-section {
-  padding: 15px 20px;
-  border-bottom: 1px solid #f0f0f0;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
-.order-section .order-items-list {
-  flex: 1;
-  min-height: 0;
-  max-height: 250px;
-  overflow-y: auto;
-}
-
-.additional-section .additional-items-list {
-  flex: 1;
-  min-height: 0;
-  max-height: 200px;
-  overflow-y: auto;
-  margin-bottom: 15px;
-}
-
-/* ================= SCROLLBAR STYLING FIX ================= */
-
-.order-items-list,
-.additional-items-list {
-  scrollbar-width: thin;
-  scrollbar-color: #c1c1c1 #f1f1f1;
-}
-
-.order-items-list::-webkit-scrollbar,
-.additional-items-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.order-items-list::-webkit-scrollbar-track,
-.additional-items-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-.order-items-list::-webkit-scrollbar-thumb,
-.additional-items-list::-webkit-scrollbar-thumb {
-  background-color: #c1c1c1;
-  border-radius: 4px;
-  border: 2px solid #f1f1f1;
-}
-
-.order-items-list::-webkit-scrollbar-thumb:hover,
-.additional-items-list::-webkit-scrollbar-thumb:hover {
-  background-color: #a1a1a1;
-}
-
-/* ================= HEIGHT FIX FOR SCROLL CONTAINERS ================= */
-
-.order-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.order-panel-header {
-  flex-shrink: 0;
-}
-
-.order-items-list,
-.additional-items-list {
-  flex: 1;
-  min-height: 150px;
-}
-
-/* ================= MOBILE FIX ================= */
-
-@media (max-width: 1023px) {
-  .order-section .order-items-list,
-  .additional-section .additional-items-list {
-    max-height: 300px;
-    min-height: 200px;
-  }
-  
-  .order-panel {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-}
-
 /* ================= MENU LOADING EFFECT ================= */
 @keyframes menu-shimmer {
   0% { background-position: -450px 0; }
