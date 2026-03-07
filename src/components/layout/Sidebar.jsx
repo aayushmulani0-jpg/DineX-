@@ -35,6 +35,15 @@ const Sidebar = () => {
       >
         Analytics
       </NavLink>
+
+      <NavLink
+        to="/kitchen"
+        className={({ isActive }) =>
+          isActive ? "menu-item active" : "menu-item"
+        }
+      >
+        Kitchen Status
+      </NavLink>
     </div>
   );
 };

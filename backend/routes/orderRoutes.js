@@ -25,7 +25,14 @@ router.get("/:tableId", async (req, res) => {
     });
 
     // Return empty order if not found
-    res.json(order || { items: [], status: "draft", tableId: req.params.tableId });
+    res.json(order || { 
+      items: [], 
+      status: "draft", 
+      tableId: req.params.tableId,
+      customerName: "",
+      customerMobile: "",
+      paymentMethod: null
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -40,7 +47,14 @@ router.get("/sync/:tableId", async (req, res) => {
     });
     
     if (!order) {
-      return res.json({ items: [], status: "draft", tableId: req.params.tableId });
+      return res.json({ 
+        items: [], 
+        status: "draft", 
+        tableId: req.params.tableId,
+        customerName: "",
+        customerMobile: "",
+        paymentMethod: null
+      });
     }
     
     res.json(order);
@@ -52,7 +66,14 @@ router.get("/sync/:tableId", async (req, res) => {
 /* ================= UPDATE ORDER (WORKS FOR BOTH ADMIN & CUSTOMER) ================= */
 router.post("/:tableId", async (req, res) => {
   try {
-    const { items, paymentMethod, status, customerName, customerMobile } = req.body;
+    const {
+      items,
+      paymentMethod,
+      status,
+      customerName,
+      customerMobile,
+      kitchenStatus,
+    } = req.body;
 
     let order = await Order.findOne({
       tableId: req.params.tableId,
@@ -87,6 +108,9 @@ router.post("/:tableId", async (req, res) => {
       }
       if (status !== undefined) {
         order.status = status;
+      }
+      if (kitchenStatus !== undefined) {
+        order.kitchenStatus = kitchenStatus;
       }
       order.updatedAt = new Date();
       await order.save();
@@ -202,6 +226,41 @@ router.delete("/clear/:tableId", async (req, res) => {
       message: `Cleared ${result.deletedCount} order(s) for table ${req.params.tableId}`,
       deletedCount: result.deletedCount
     });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/* ================= UPDATE INDIVIDUAL ITEM STATUS ================= */
+router.patch("/:tableId/item/:itemId/status", async (req, res) => {
+  try {
+    const { tableId, itemId } = req.params;
+    const { itemStatus } = req.body;
+
+    if (!["new", "preparing", "served"].includes(itemStatus)) {
+      return res.status(400).json({ error: "Invalid item status" });
+    }
+
+    const order = await Order.findOne({
+      tableId: tableId,
+      status: { $in: ["active", "confirmed"] },
+    });
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    // Find and update the item status
+    const item = order.items.find((i) => i.id === itemId);
+    if (!item) {
+      return res.status(404).json({ error: "Item not found in order" });
+    }
+
+    item.itemStatus = itemStatus;
+    order.updatedAt = new Date();
+    await order.save();
+
+    res.json(order);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -29,10 +29,12 @@ const OrderDrawer = ({
   generateBill,
   billingConfig,
   setBillingConfig,
+  menuItems = [],
 }) => {
   const [cart, setCart] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   const paymentOptions = ["Cash", "UPI", "Card"];
 
@@ -58,18 +60,21 @@ const OrderDrawer = ({
 
     try {
       const updatedCart = [...cart];
-      const existing = updatedCart.find((i) => i.id === item.id);
+      // Normalize item ID (handle both _id from menu and id from cart)
+      const itemId = item.id || item._id;
+      const existing = updatedCart.find((i) => i.id === itemId);
 
       if (existing) {
         existing.qty += 1;
       } else {
         updatedCart.push({
-          id: item.id,
+          id: itemId,
           name: item.name,
           price: item.price,
           img: item.img,
           category: item.category,
           qty: 1,
+          itemStatus: "new", // New items start with "new" status
         });
       }
 
@@ -248,7 +253,7 @@ const OrderDrawer = ({
       <div className="order-items">
         {cart.length === 0 ? (
           <div className="empty-cart">
-            No items in order. Add items from menu.
+            No items in order. Add items from menu below.
           </div>
         ) : (
           cart.map((item) => (
@@ -292,6 +297,43 @@ const OrderDrawer = ({
           ))
         )}
       </div>
+
+      {menuItems && menuItems.length > 0 && (
+        <>
+          <Button
+            type="dashed"
+            block
+            onClick={() => setShowMenu(!showMenu)}
+            style={{ marginTop: "12px" }}
+            icon={<PlusOutlined />}
+          >
+            {showMenu ? "Hide Menu" : "Add Items from Menu"}
+          </Button>
+
+          {showMenu && (
+            <div className="menu-items-section">
+              <div className="menu-items-grid">
+                {menuItems.map((menuItem) => (
+                  <div key={menuItem._id} className="menu-item-card">
+                    <div className="menu-item-info">
+                      <div className="menu-item-name">{menuItem.name}</div>
+                      <div className="menu-item-price">₹{menuItem.price}</div>
+                    </div>
+                    <Button
+                      size="small"
+                      type="primary"
+                      onClick={() => handleAddItem(menuItem)}
+                      icon={<PlusOutlined />}
+                    >
+                      Add
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
 
       {cart.length > 0 && order?.status !== "confirmed" && (
         <div className="clear-all-section">

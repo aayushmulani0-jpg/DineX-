@@ -7,6 +7,10 @@ const orderItemSchema = new mongoose.Schema({
   qty: Number,
   img: String,
   category: String,
+  itemStatus: {
+    type: String,
+    default: "new", // new | preparing | served
+  },
 });
 
 const orderSchema = new mongoose.Schema(
@@ -31,6 +35,10 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "active", // active | paid
+    },
+    kitchenStatus: {
+      type: String,
+      default: "new", // new | preparing | served
     },
     totalAmount: {
       type: Number,

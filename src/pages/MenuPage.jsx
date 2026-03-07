@@ -67,53 +67,67 @@ export default function MenuPage({
       );
 
       const orderData = res.data;
+      const newStatus = orderData.status || "draft";
+
       setOrderItems(orderData.items || []);
-      setOrderStatus(orderData.status || "draft");
 
-      if (orderData.customerName && !customerName) {
-        setCustomerName(orderData.customerName);
-      }
-      if (orderData.customerMobile && !customerMobile) {
-        setCustomerMobile(orderData.customerMobile);
-      }
-
-      const nextTableActive = orderData.status !== "draft";
-      if (isTableActive === null || nextTableActive !== isTableActive) {
-        setIsTableActive(nextTableActive);
-        if (nextTableActive) {
-          setCustomerInfoOpen(false);
-        } else {
-          setCustomerName("");
-          setCustomerMobile("");
+      // Only reset customer info when transitioning FROM active/confirmed TO draft
+      // Don't reset if already in draft state (user might be typing)
+      if (newStatus === "draft" && orderStatus !== "draft") {
+        // Order was just cleared/billed - reset everything
+        setCustomerName("");
+        setCustomerMobile("");
+        setPaymentMethod(null);
+        setCustomerOrderId(null);
+        setShowAddMoreSection(false);
+        setAdditionalItems([]);
+        setCustomerInfoOpen(true);
+        setIsTableActive(false);
+      } else if (newStatus === "draft" && orderStatus === "draft") {
+        // Already in draft state - check if we need to show modal (initial load or user typing)
+        // Only open modal if customer info is empty and modal is not already open
+        if (!customerName && !customerMobile && !customerInfoOpen) {
           setCustomerInfoOpen(true);
+        }
+      } else if (newStatus === "active" || newStatus === "confirmed") {
+        // Active or confirmed order - load customer info only if not already set
+        if (orderData.customerName && !customerName) {
+          setCustomerName(orderData.customerName);
+        }
+        if (orderData.customerMobile && !customerMobile) {
+          setCustomerMobile(orderData.customerMobile);
+        }
+        if (orderData.paymentMethod) {
+          setPaymentMethod(orderData.paymentMethod);
+        }
+
+        setCustomerInfoOpen(false);
+        setIsTableActive(true);
+
+        // Generate order ID if confirmed
+        if (orderData.status === "confirmed" && !customerOrderId) {
+          setCustomerOrderId(
+            `${normalizedTableId}-${Date.now().toString().slice(-6)}`,
+          );
+        }
+
+        // Show add more section if order is confirmed
+        if (orderData.status === "confirmed") {
+          setShowAddMoreSection(true);
         }
       }
 
-      // Set payment method if exists
-      if (orderData.paymentMethod) {
-        setPaymentMethod(orderData.paymentMethod);
-      }
-
-      // Generate order ID if confirmed
-      if (orderData.status === "confirmed" && !customerOrderId) {
-        setCustomerOrderId(
-          `${normalizedTableId}-${Date.now().toString().slice(-6)}`,
-        );
-      }
-
-      // Show add more section if order is confirmed
-      if (orderData.status === "confirmed") {
-        setShowAddMoreSection(true);
-      }
+      setOrderStatus(newStatus);
     } catch (error) {
       console.error("Failed to fetch order:", error);
     }
   }, [
     normalizedTableId,
     customerOrderId,
+    orderStatus,
     customerName,
     customerMobile,
-    isTableActive,
+    customerInfoOpen,
   ]);
 
   useEffect(() => {

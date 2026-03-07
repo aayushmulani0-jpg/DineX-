@@ -20,6 +20,7 @@ import Billing from "./pages/Billing";
 import Analytics from "./pages/Analytics";
 import MenuPage from "./pages/MenuPage";
 import ErrorPage from "./pages/ErrorPage";
+import KitchenStatus from "./pages/KitchenStatus";
 
 function Layout() {
   return (
@@ -274,6 +275,7 @@ function App() {
           />
           <Route path="/billing" element={<Billing bills={bills} />} />
           <Route path="/analytics" element={<Analytics bills={bills} />} />
+          <Route path="/kitchen" element={<KitchenStatus />} />
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

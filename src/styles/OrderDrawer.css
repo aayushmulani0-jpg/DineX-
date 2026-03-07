@@ -296,3 +296,70 @@
 .order-status-tag {
   margin-left: 8px;
 }
+
+/* ================= MENU ITEMS SECTION ================= */
+.menu-items-section {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  background: #fafafa;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.menu-items-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.menu-item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.menu-item-card:hover {
+  border-color: #ff8a00;
+  box-shadow: 0 2px 8px rgba(255, 138, 0, 0.15);
+}
+
+.menu-item-info {
+  flex: 1;
+}
+
+.menu-item-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.menu-item-price {
+  font-size: 13px;
+  color: #ff8a00;
+  font-weight: 600;
+}
+
+.menu-items-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menu-items-section::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.menu-items-section::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.menu-items-section::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
