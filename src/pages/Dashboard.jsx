@@ -70,7 +70,6 @@ const Dashboard = ({
 
   /* ================= FILTER ACTIVE ORDERS ================= */
   useEffect(() => {
-    // Filter out orders that are not truly active (draft status or no items)
     const validActiveOrders = activeOrders.filter(
       (order) =>
         order &&
@@ -88,11 +87,7 @@ const Dashboard = ({
         return;
       }
 
-      // Call the generateBill function passed from App.jsx
       await generateBill(tableId, amount, method);
-
-      // The table should be cleared automatically by the generateBill function
-      // No need to manually close drawer or reset state here
     } catch (error) {
       console.error("Failed to generate bill:", error);
     }
