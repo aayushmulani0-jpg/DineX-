@@ -21,6 +21,8 @@ import Analytics from "./pages/Analytics";
 import MenuPage from "./pages/MenuPage";
 import ErrorPage from "./pages/ErrorPage";
 import KitchenStatus from "./pages/KitchenStatus";
+import CustomerScreen from "./pages/CustomerScreen";
+import Stock from "./pages/Stock";
 
 function Layout() {
   return (
@@ -276,6 +278,8 @@ function App() {
           <Route path="/billing" element={<Billing bills={bills} />} />
           <Route path="/analytics" element={<Analytics bills={bills} />} />
           <Route path="/kitchen" element={<KitchenStatus />} />
+          <Route path="/customer" element={<CustomerScreen />} />
+          <Route path="/stock" element={<Stock />} />
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Stats from "../components/dashboard/Stats";
 import OrderDrawer from "../components/drawer/OrderDrawer";
 import MenuModal from "../components/menu/MenuModal";
-import Topbar from "../components/layout/Topbar";
+import Topbar from "../components/layout/TopBar";
 import dining from "../assets/dining.jpg";
 import "../styles/dashboard.css";
 import { Link } from "react-router-dom";

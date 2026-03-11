@@ -44,6 +44,24 @@ const Sidebar = () => {
       >
         Kitchen Status
       </NavLink>
+
+      <NavLink
+        to="/customer"
+        className={({ isActive }) =>
+          isActive ? "menu-item active" : "menu-item"
+        }
+      >
+        Customer Screen
+      </NavLink>
+
+      <NavLink
+        to="/stock"
+        className={({ isActive }) =>
+          isActive ? "menu-item active" : "menu-item"
+        }
+      >
+        Stock
+      </NavLink>
     </div>
   );
 };

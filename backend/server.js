@@ -12,6 +12,7 @@ const billingRoutes = require("./routes/billingRoutes");
 const billRoutes = require("./routes/billRoutes");
 const syncRoutes = require("./routes/syncRoutes");
 const tableRoutes = require("./routes/tableRoutes");
+const stockRoutes = require("./routes/stockRoutes");
 
 // Middleware
 app.use(cors());
@@ -24,6 +25,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/bills", billRoutes);
 app.use("/api/sync", syncRoutes);
 app.use("/api/tables", tableRoutes);
+app.use("/api/stock", stockRoutes);
 
 // Test route
 app.get("/", (req, res) => {

@@ -1,0 +1,125 @@
+.customer-main {
+  padding-top: 24px;
+}
+
+.customer-hero {
+  background: linear-gradient(135deg, #1a9b7d, #41bf9b);
+  color: #ffffff;
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 24px;
+}
+
+.customer-hero h2 {
+  margin: 0 0 8px;
+}
+
+.customer-hero p {
+  margin: 0;
+  opacity: 0.95;
+}
+
+.customer-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.customer-stat-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.customer-stat-card p {
+  margin: 0 0 6px;
+  color: #6d7380;
+}
+
+.customer-stat-card h3 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.customer-table-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.customer-table-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #e6e8ee;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.customer-table-card.occupied {
+  border-color: #f3b2b2;
+  background: #fff6f6;
+}
+
+.customer-table-card.available {
+  border-color: #b8ebd9;
+  background: #f4fffb;
+}
+
+.customer-table-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.customer-table-head h4 {
+  margin: 0;
+}
+
+.customer-status-badge {
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.customer-status-badge.occupied {
+  background: #ffdfdf;
+  color: #8e1d1d;
+}
+
+.customer-status-badge.available {
+  background: #d9f8eb;
+  color: #0f6e4f;
+}
+
+.customer-table-id {
+  color: #6d7380;
+  margin: 10px 0;
+}
+
+.customer-occupied-meta p,
+.customer-available-text {
+  margin: 4px 0;
+}
+
+.customer-empty {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px dashed #ccd3e0;
+  padding: 24px;
+  text-align: center;
+  color: #6d7380;
+}
+
+@media (max-width: 768px) {
+  .customer-main {
+    padding: 20px;
+  }
+
+  .customer-hero {
+    padding: 20px;
+  }
+}

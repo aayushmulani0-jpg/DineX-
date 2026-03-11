@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import Topbar from "../components/layout/Topbar";
+import Topbar from "../components/layout/TopBar";
 import OrderDrawer from "../components/drawer/OrderDrawer";
 import "../styles/KitchenStatus.css";
 

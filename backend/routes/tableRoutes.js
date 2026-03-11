@@ -15,7 +15,6 @@ router.get("/", async (req, res) => {
 /* ================= ADD NEW TABLE ================= */
 router.post("/", async (req, res) => {
   try {
-    // Fetch all tables to determine highest number safely
     const tables = await Table.find();
 
     let maxNumber = 0;
