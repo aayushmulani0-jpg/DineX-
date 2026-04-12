@@ -1,4 +1,10 @@
-﻿import React, { useState, useEffect, useMemo, useCallback } from "react";
+﻿import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import { useParams } from "react-router-dom";
 import { Row, Col, Typography, Tag, message, Modal, Input } from "antd";
 import {
@@ -37,16 +43,54 @@ export default function MenuPage({
   const [savingCustomerInfo, setSavingCustomerInfo] = useState(false);
   const [isTableActive, setIsTableActive] = useState(null);
   const [messageApi, contextHolder] = message.useMessage();
+  const orderStatusRef = useRef(orderStatus);
+  const customerNameRef = useRef(customerName);
+  const customerMobileRef = useRef(customerMobile);
+  const customerInfoOpenRef = useRef(customerInfoOpen);
+  const customerOrderIdRef = useRef(customerOrderId);
+  const menuDataRef = useRef(menuData);
 
   const paymentOptions = ["Cash", "UPI", "Card"];
   const normalizedTableId = tableId ? `T${tableId}` : null;
+
+  useEffect(() => {
+    orderStatusRef.current = orderStatus;
+  }, [orderStatus]);
+
+  useEffect(() => {
+    customerNameRef.current = customerName;
+  }, [customerName]);
+
+  useEffect(() => {
+    customerMobileRef.current = customerMobile;
+  }, [customerMobile]);
+
+  useEffect(() => {
+    customerInfoOpenRef.current = customerInfoOpen;
+  }, [customerInfoOpen]);
+
+  useEffect(() => {
+    customerOrderIdRef.current = customerOrderId;
+  }, [customerOrderId]);
+
+  useEffect(() => {
+    menuDataRef.current = menuData;
+  }, [menuData]);
 
   /* ================= SYNC MENU FROM SERVER ================= */
   useEffect(() => {
     const syncMenu = async () => {
       try {
         const res = await axios.get("http://localhost:5000/api/sync/menu");
-        setMenuData(res.data);
+        const nextMenu = Array.isArray(res.data) ? res.data : [];
+        const previousMenu = menuDataRef.current;
+
+        if (
+          previousMenu.length !== nextMenu.length ||
+          previousMenu.some((item, index) => item.id !== nextMenu[index]?.id)
+        ) {
+          setMenuData(nextMenu);
+        }
       } catch (err) {
         console.error("Failed to sync menu", err);
       }
@@ -68,12 +112,17 @@ export default function MenuPage({
 
       const orderData = res.data;
       const newStatus = orderData.status || "draft";
+      const previousStatus = orderStatusRef.current;
+      const previousCustomerName = customerNameRef.current;
+      const previousCustomerMobile = customerMobileRef.current;
+      const previousCustomerInfoOpen = customerInfoOpenRef.current;
+      const previousCustomerOrderId = customerOrderIdRef.current;
 
       setOrderItems(orderData.items || []);
 
       // Only reset customer info when transitioning FROM active/confirmed TO draft
       // Don't reset if already in draft state (user might be typing)
-      if (newStatus === "draft" && orderStatus !== "draft") {
+      if (newStatus === "draft" && previousStatus !== "draft") {
         // Order was just cleared/billed - reset everything
         setCustomerName("");
         setCustomerMobile("");
@@ -83,18 +132,22 @@ export default function MenuPage({
         setAdditionalItems([]);
         setCustomerInfoOpen(true);
         setIsTableActive(false);
-      } else if (newStatus === "draft" && orderStatus === "draft") {
+      } else if (newStatus === "draft" && previousStatus === "draft") {
         // Already in draft state - check if we need to show modal (initial load or user typing)
         // Only open modal if customer info is empty and modal is not already open
-        if (!customerName && !customerMobile && !customerInfoOpen) {
+        if (
+          !previousCustomerName &&
+          !previousCustomerMobile &&
+          !previousCustomerInfoOpen
+        ) {
           setCustomerInfoOpen(true);
         }
       } else if (newStatus === "active" || newStatus === "confirmed") {
         // Active or confirmed order - load customer info only if not already set
-        if (orderData.customerName && !customerName) {
+        if (orderData.customerName && !previousCustomerName) {
           setCustomerName(orderData.customerName);
         }
-        if (orderData.customerMobile && !customerMobile) {
+        if (orderData.customerMobile && !previousCustomerMobile) {
           setCustomerMobile(orderData.customerMobile);
         }
         if (orderData.paymentMethod) {
@@ -105,7 +158,7 @@ export default function MenuPage({
         setIsTableActive(true);
 
         // Generate order ID if confirmed
-        if (orderData.status === "confirmed" && !customerOrderId) {
+        if (orderData.status === "confirmed" && !previousCustomerOrderId) {
           setCustomerOrderId(
             `${normalizedTableId}-${Date.now().toString().slice(-6)}`,
           );
@@ -229,25 +282,9 @@ export default function MenuPage({
   /* ================= ORDER ACTIONS ================= */
   const handleAdd = async (item) => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/orders/${normalizedTableId}`,
-      );
-      let existingOrder = res.data;
+      const isPostConfirmation = orderStatusRef.current === "confirmed";
 
-      // Determine if we're in post-confirmation mode
-      const isPostConfirmation = existingOrder?.status === "confirmed";
-
-      let targetItems;
-      let isAdditional = false;
-
-      if (isPostConfirmation) {
-        // After confirmation, all new items go to additionalItems
-        targetItems = additionalItems;
-        isAdditional = true;
-      } else {
-        // Before confirmation, items go to main order
-        targetItems = existingOrder?.items || [];
-      }
+      const targetItems = isPostConfirmation ? additionalItems : orderItems;
 
       const found = targetItems.find((o) => o.id === item.id);
 
@@ -270,7 +307,7 @@ export default function MenuPage({
         ];
       }
 
-      if (isPostConfirmation || isAdditional) {
+      if (isPostConfirmation) {
         // For post-confirmation items, store locally only
         setAdditionalItems(updatedItems);
         messageApi.success(`${item.name} added for later confirmation`);

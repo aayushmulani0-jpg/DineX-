@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700&display=swap");
-
 :root {
 	--kitchen-bg: #f6f4ef;
 	--kitchen-ink: #1f1c17;
@@ -14,8 +12,8 @@
 }
 
 .kitchen-main {
-	font-family: "Urbanist", "Space Grotesk", sans-serif;
-	background: var(--kitchen-bg);
+	font-family: inherit;
+	background: transparent;
 }
 
 .kitchen-hero {
@@ -129,6 +127,7 @@
 	gap: 18px;
 	position: relative;
 	overflow: hidden;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .kitchen-card::before {
@@ -301,6 +300,7 @@
 	display: flex;
 	gap: 6px;
 	justify-content: flex-end;
+	align-items: center;
 }
 
 .kitchen-item-btn {
@@ -344,6 +344,18 @@
 	color: var(--kitchen-muted);
 	cursor: not-allowed;
 	opacity: 0.6;
+}
+
+.kitchen-item-done {
+	padding: 6px 10px;
+	border-radius: 999px;
+	background: rgba(22, 163, 74, 0.14);
+	color: var(--kitchen-served);
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	border: 1px solid rgba(22, 163, 74, 0.22);
 }
 
 .kitchen-manage-btn {
@@ -450,6 +462,18 @@
 @media (max-width: 600px) {
 	.kitchen-main {
 		padding: 24px;
+	}
+
+	.kitchen-hero {
+		padding: 20px;
+	}
+
+	.kitchen-stats {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.kitchen-card-grid {
+		grid-template-columns: 1fr;
 	}
 
 	.kitchen-card {

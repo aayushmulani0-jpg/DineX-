@@ -67,6 +67,198 @@
   margin-bottom: 24px;
 }
 
+.analytics-forecast {
+  background: linear-gradient(180deg, #fff8ef 0%, #ffffff 100%);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0e3d1;
+  margin-bottom: 24px;
+}
+
+.analytics-forecast-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.analytics-forecast-eyebrow {
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #c26a12;
+}
+
+.analytics-forecast-header h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #1f2937;
+}
+
+.analytics-forecast-header p {
+  margin: 0;
+  color: #6d7380;
+  max-width: 760px;
+}
+
+.analytics-forecast-score {
+  min-width: 120px;
+  border-radius: 14px;
+  background: #fff;
+  padding: 14px 16px;
+  border: 1px solid #f1e5d7;
+  text-align: right;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.analytics-forecast-score span {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a6d4b;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.analytics-forecast-score strong {
+  font-size: 28px;
+  color: #ff8a00;
+}
+
+.analytics-forecast-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.forecast-summary-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid #f0e3d1;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
+}
+
+.forecast-summary-card p {
+  margin: 0 0 8px;
+  color: #6d7380;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+}
+
+.forecast-summary-card h2 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  color: #1f2937;
+}
+
+.forecast-primary {
+  background: linear-gradient(135deg, #fff1df, #ffffff);
+  border-left: 5px solid #ff8a00;
+}
+
+.analytics-forecast-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.analytics-forecast-chart,
+.analytics-forecast-factors {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid #f0e3d1;
+}
+
+.analytics-forecast-chart h4,
+.analytics-forecast-factors h4 {
+  margin: 0 0 14px;
+  font-size: 15px;
+  color: #333;
+}
+
+.analytics-empty-compact {
+  height: 300px;
+}
+
+.forecast-factor-list {
+  display: grid;
+  gap: 12px;
+}
+
+.forecast-factor {
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #f9fafb;
+  border-left: 4px solid #cfd7e3;
+}
+
+.forecast-factor span {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6d7380;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.forecast-factor strong {
+  color: #1f2937;
+  font-size: 13px;
+}
+
+.forecast-factor.up {
+  border-left-color: #16a34a;
+}
+
+.forecast-factor.neutral {
+  border-left-color: #1e6ea4;
+}
+
+.forecast-factor.down {
+  border-left-color: #dc2626;
+}
+
+.analytics-forecast-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.forecast-day-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #f0e3d1;
+  padding: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+}
+
+.forecast-day-card span {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6d7380;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.forecast-day-card strong {
+  font-size: 16px;
+  color: #ff8a00;
+}
+
 .analytics-chart-card {
   background: #fff;
   border-radius: 14px;
@@ -141,6 +333,10 @@
   .analytics-grid {
     grid-template-columns: 1fr;
   }
+
+  .analytics-forecast-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -163,5 +359,13 @@
 
   .insights-list {
     grid-template-columns: 1fr;
+  }
+
+  .analytics-forecast-header {
+    flex-direction: column;
+  }
+
+  .analytics-forecast-score {
+    text-align: left;
   }
 }

@@ -24,6 +24,19 @@ const hashItems = (items = []) =>
     .sort()
     .join("|");
 
+const getItemProgress = (items = []) =>
+  items.reduce(
+    (progress, item) => {
+      const itemStatusKey = item.itemStatus || "new";
+
+      progress.total += 1;
+      progress[itemStatusKey] = (progress[itemStatusKey] || 0) + 1;
+
+      return progress;
+    },
+    { total: 0, new: 0, preparing: 0, served: 0 },
+  );
+
 const KitchenStatus = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -146,15 +159,27 @@ const KitchenStatus = () => {
   };
 
   const totalOrders = orders.length;
-  const preparingCount = orders.filter(
-    (order) => (order.kitchenStatus || "new") === "preparing",
+  const derivedStatuses = orders.map((order) => {
+    const itemProgress = getItemProgress(order.items);
+
+    if (itemProgress.total > 0 && itemProgress.served === itemProgress.total) {
+      return "served";
+    }
+
+    if (itemProgress.preparing > 0 || itemProgress.served > 0) {
+      return "preparing";
+    }
+
+    return order.kitchenStatus || "new";
+  });
+
+  const preparingCount = derivedStatuses.filter(
+    (status) => status === "preparing",
   ).length;
-  const servedCount = orders.filter(
-    (order) => (order.kitchenStatus || "new") === "served",
+  const servedCount = derivedStatuses.filter(
+    (status) => status === "served",
   ).length;
-  const newCount = orders.filter(
-    (order) => (order.kitchenStatus || "new") === "new",
-  ).length;
+  const newCount = derivedStatuses.filter((status) => status === "new").length;
 
   return (
     <div className="main kitchen-main">
@@ -204,8 +229,17 @@ const KitchenStatus = () => {
               (sum, item) => sum + item.price * item.qty,
               0,
             );
+            const itemProgress = getItemProgress(order.items);
             const statusKey = order.kitchenStatus || "new";
-            const statusInfo = statusMeta[statusKey] || statusMeta.new;
+            const derivedStatusKey =
+              itemProgress.total > 0 &&
+              itemProgress.served === itemProgress.total
+                ? "served"
+                : itemProgress.preparing > 0 || itemProgress.served > 0
+                  ? "preparing"
+                  : statusKey;
+            const derivedStatusInfo =
+              statusMeta[derivedStatusKey] || statusMeta.new;
             const hasNewItems = newItemsMap[order.tableId];
 
             return (
@@ -215,8 +249,8 @@ const KitchenStatus = () => {
                     <h3>{order.tableId}</h3>
                     <p>Updated at {formatTime(order.updatedAt)}</p>
                   </div>
-                  <span className={`kitchen-status ${statusInfo.tone}`}>
-                    {statusInfo.label}
+                  <span className={`kitchen-status ${derivedStatusInfo.tone}`}>
+                    {derivedStatusInfo.label}
                   </span>
                 </div>
 
@@ -295,12 +329,7 @@ const KitchenStatus = () => {
                               </button>
                             )}
                             {itemStatusKey === "served" && (
-                              <button
-                                className="kitchen-item-btn done"
-                                disabled
-                              >
-                                ✓
-                              </button>
+                              <span className="kitchen-item-done">Served</span>
                             )}
                           </div>
                         </li>
@@ -317,7 +346,7 @@ const KitchenStatus = () => {
                 </div>
 
                 <div className="kitchen-card-actions">
-                  {statusKey === "new" && (
+                  {derivedStatusKey === "new" && (
                     <button
                       className="kitchen-btn primary"
                       onClick={() =>
@@ -327,7 +356,7 @@ const KitchenStatus = () => {
                       Accept Order
                     </button>
                   )}
-                  {statusKey === "preparing" && (
+                  {derivedStatusKey === "preparing" && (
                     <button
                       className="kitchen-btn success"
                       onClick={() =>
@@ -337,7 +366,7 @@ const KitchenStatus = () => {
                       Served
                     </button>
                   )}
-                  {statusKey === "served" && (
+                  {derivedStatusKey === "served" && (
                     <button className="kitchen-btn ghost" disabled>
                       Served
                     </button>
