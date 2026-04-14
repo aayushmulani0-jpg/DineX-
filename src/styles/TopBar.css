@@ -1,5 +1,18 @@
 /* ================= TOPBAR DATE/TIME DISPLAY ================= */
 
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .topbar-datetime {
   display: flex;
   align-items: center;
@@ -24,4 +37,36 @@
   padding: 6px 10px;
   border-radius: 10px;
   color: #111;
+}
+
+.topbar-logout {
+  border: 1px solid #d4dae4;
+  background: #ffffff;
+  color: #313b4a;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.topbar-logout:hover {
+  border-color: #f08f2c;
+  color: #a14f00;
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .topbar-datetime {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
 }

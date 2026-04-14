@@ -78,6 +78,19 @@ body {
   font-weight: 600;
 }
 
+.menu-item-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #dc2626;
+}
+
 /* ================= HEADER / TOPBAR POLISH ================= */
 .topbar {
   top: 0;

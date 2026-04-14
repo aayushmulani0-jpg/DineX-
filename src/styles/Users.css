@@ -1,0 +1,155 @@
+.users-main {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+  overflow-x: auto;
+  max-height: none;
+  min-height: calc(100vh - 1px);
+}
+
+.users-hero {
+  background: linear-gradient(135deg, #fef7ea, #f4f8ff);
+  border: 1px solid #e6e7ef;
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+
+.users-hero h2 {
+  margin: 0;
+  color: #1e2530;
+}
+
+.users-hero p {
+  margin: 8px 0 0;
+  color: #596273;
+}
+
+.users-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.users-stat-card {
+  background: #fff;
+  border: 1px solid #eceff6;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.users-stat-card p {
+  margin: 0;
+  color: #5c6679;
+  font-size: 13px;
+}
+
+.users-stat-card h3 {
+  margin: 8px 0 0;
+  color: #1d2430;
+  font-size: 30px;
+}
+
+.users-table-wrap {
+  background: #fff;
+  border: 1px solid #eceff6;
+  border-radius: 12px;
+  overflow: visible;
+}
+
+.users-empty {
+  padding: 24px;
+  color: #5b6470;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 820px;
+}
+
+.users-table th,
+.users-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #edf1f7;
+  font-size: 14px;
+}
+
+.users-table thead th {
+  background: #f7f9fd;
+  color: #2d3645;
+  font-weight: 700;
+}
+
+.users-table tbody tr:hover {
+  background: #fcfdff;
+}
+
+.users-pending-header h3 {
+  margin: 4px 0;
+  color: #1f2733;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.users-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.users-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.users-action-btn {
+  border: 1px solid #d5dbe7;
+  background: #fff;
+  color: #2a3444;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.users-action-btn.approve {
+  border-color: #86efac;
+  color: #166534;
+  background: #f0fdf4;
+}
+
+.users-action-btn.deny,
+.users-action-btn.remove {
+  border-color: #fecaca;
+  color: #991b1b;
+  background: #fef2f2;
+}
+
+.users-feedback,
+.users-error {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.users-feedback {
+  color: #166534;
+}
+
+.users-error {
+  color: #991b1b;
+}
+
+.users-note {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+}
