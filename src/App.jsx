@@ -65,12 +65,6 @@ function RequireAuth({ isAuthenticated }) {
   return <Outlet />;
 }
 
-const createDefaultTables = () =>
-  Array.from({ length: 8 }, (_, index) => ({
-    id: `T${index + 1}`,
-    name: `Table ${index + 1}`,
-  }));
-
 function App() {
   const [tables, setTables] = useState([]);
   const [menuItems, setMenuItems] = useState([]);

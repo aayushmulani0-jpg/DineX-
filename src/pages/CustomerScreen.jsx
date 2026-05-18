@@ -67,7 +67,7 @@ const CustomerScreen = () => {
 
   return (
     <div className="main customer-main">
-      <Topbar />
+      {/* <Topbar /> */}
 
       <div className="customer-hero">
         <h2>Customer Table Occupancy</h2>

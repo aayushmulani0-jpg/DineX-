@@ -336,7 +336,7 @@ const Stock = () => {
             <Form.Item label="Unit Cost (INR)" name="costPrice">
               <InputNumber min={0} className="stock-full" />
             </Form.Item>
-
+            {/* 
             <Form.Item label="Supplier Name" name="supplierName">
               <Input placeholder="Supplier or vendor name" />
             </Form.Item>
@@ -355,14 +355,14 @@ const Stock = () => {
 
             <Form.Item label="Expiry Date" name="expiryDate">
               <DatePicker className="stock-full" format="DD-MM-YYYY" />
-            </Form.Item>
+            </Form.Item> */}
 
-            <Form.Item label="Notes" name="notes" className="stock-notes">
+            {/* <Form.Item label="Notes" name="notes" className="stock-notes">
               <Input.TextArea
                 rows={3}
                 placeholder="Any handling/storage notes"
               />
-            </Form.Item>
+            </Form.Item> */}
           </div>
         </Form>
       </Modal>

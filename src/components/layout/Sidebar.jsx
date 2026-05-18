@@ -5,8 +5,8 @@ const Sidebar = ({ pendingRequestsCount = 0 }) => {
   return (
     <div className="sidebar">
       <div className="logo">
-        NeuroDineX
-        <p className="w-text">Welcome to McCafe Admin</p>
+        DineX
+        <p className="w-text">Welcome to DineX Admin</p>
       </div>
 
       <NavLink

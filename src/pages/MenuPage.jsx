@@ -539,7 +539,7 @@ export default function MenuPage({
         <div className="menu-left">
           <div className="menu-header">
             <div>
-              <div className="logo">NeuroDineX</div>
+              <div className="logo">DineX</div>
               <center className="table-badge">
                 Table: {tableId}
                 {orderStatus === "confirmed" && (
